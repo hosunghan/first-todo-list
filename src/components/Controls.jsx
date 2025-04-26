@@ -1,16 +1,18 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import './Controls.css'
-import { TodoContext } from '../context';
-import { ADD_TODO, SET_FILTER } from '../reducer';
+import { SET_FILTER } from '../reducer';
+import { useSelector, useDispatch} from 'react-redux'
+import { addTodo } from '../store/todoSlice';
 
 function Controls() {
-    const {state, dispatch} = useContext(TodoContext);
+    const state = useSelector((state) => state.todo);   
+    const dispatch = useDispatch();
     const [text, setText] = useState("");
     const handleChange= (e) => {
         setText(e.target.value);
     };
     const handleSubmit = () => {
-        dispatch({type: ADD_TODO, payload: text});
+        dispatch(addTodo(text));    
         setText("");
     };
     const handleChangeFilterType = (e) => {

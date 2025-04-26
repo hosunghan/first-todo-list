@@ -1,11 +1,12 @@
 import { createContext, useEffect, useReducer } from "react";
-import { reducer, initialState, init } from "../reducer"
+import { init } from "../reducer"
+import { initialState } from "../store/todoSlice";
 
 export const TodoContext = createContext();
 
 export const ToDoProvider = ({children}) => {
 
-  const [state, dispatch ] = useReducer(reducer, initialState, init);
+  const [state, dispatch ] = useReducer(initialState, init);
   
     useEffect(()=>{
       window.localStorage.setItem("TODO", JSON.stringify(state.list));
